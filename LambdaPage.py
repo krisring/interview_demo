@@ -31,3 +31,26 @@ class LambdaPage(BasePage):
             if item.text == item_value:
                 return True
         return False
+
+    def list_contains_defaults(self):
+        self.list_items = self.driver.find_elements(By.XPATH, self.item_table)
+        defaults = ["First Item",
+                    "Second Item",
+                    "Third Item",
+                    "Fourth Item",
+                    "Fifth Item"]
+        check_list = []
+        for item in self.list_items:
+            check_list.append(item.text)
+        if check_list == defaults:
+            return True
+        return False
+
+    def get_list_count(self):
+        self.list_items = self.driver.find_elements(By.XPATH, self.item_table)
+        return len(self.list_items)
+
+    def add_button_present(self):
+        BasePage.check_element_presence(self, By.XPATH, self.button)
+
+

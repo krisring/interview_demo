@@ -16,6 +16,11 @@ class BasePage(unittest.TestCase):
         self.button = self.driver.find_element(locator, locator_value)
         self.button.click()
 
+    def check_element_presence(self, locator, locator_value):
+        self.element_to_check = self.driver.find_element(locator, locator_value)
+
+        return self.element_to_check.id is not None
+
     def fill_the_form(self, locator, locator_value, value_text):
         self.form = self.driver.find_element(locator, locator_value)
         self.form.clear()
