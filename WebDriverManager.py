@@ -5,21 +5,23 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from webdriver_manager.utils import ChromeType
 
 
 class WebDriverManager(object):
-    def __init__(self, driver):
-        browser_switch = {
-            "Chrome",
-            "Firefox",
-            "Edge"
-        }
-        if driver not in browser_switch:
-            print(f"Invalid argument.")
-        elif browser_switch.get(driver) == "Chrome":
-            return webdriver.Chrome(ChromeDriverManager().install())
-        # elif browser_switch.get(driver) == "Firefox":
-        #     return webdriver.Firefox(executable_path=GeckoDriverManager().install())
-        # elif browser_switch.get(driver) == "Edge":
-        #     return webdriver.Edge(EdgeChromiumDriverManager().install())
+    def __init__(self, driver_arg):
+        get_driver(driver_arg)
+
+
+def get_driver(driver_arg):
+    driver = None
+
+    if driver_arg == 'chrome':
+        driver_path = ChromeDriverManager().install()
+        driver = webdriver.Chrome(driver_path)
+    elif driver_arg == 'firefox':
+        driver_path = GeckoDriverManager().install()
+        driver = webdriver.Firefox(driver_path)
+    elif driver_arg == 'edge':
+        driver_path = EdgeChromiumDriverManager().install()
+        driver = webdriver.Edge(driver_path)
+    return driver
